@@ -6,14 +6,18 @@
 //
 
 import UIKit
+import Darwin
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
+    @IBOutlet var ingredientsViewController: UIView!
     @IBOutlet weak var ingredientsTableView: UITableView!
     @IBOutlet weak var ingredientsTextField: UITextField!
-    var ingredients: [String] = ["A", "B"]
+    var ingredients: [String] = []
+    var searchHistory = [[String]]()
     
     
+    /*-----------------------On startup---------------------------*/
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -23,43 +27,102 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
+    
+    /*-----------------------Ingredients Table View---------------------------*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // getting the amount of ingredients in the view
         return ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // creating an instance of the cell template
         let tempCell:IngredientsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! IngredientsTableViewCell
-        tempCell.ingredientButton.titleLabel!.text = ingredients[indexPath.row]
+        // setting the label to the ingredient
+        tempCell.ingredientLabel!.text = ingredients[indexPath.row]
+        //setting the tag value to the row number in the table view
+        tempCell.ingredientButton.tag = indexPath.row
+        //return the cell
         return tempCell
         
     }
 
-
     
-    
-    
-    
-    
-    @IBAction func submitOnClick(_ sender: Any) {
-        if(!ingredientsTextField.text!.isEmpty){
-            
+    /*-----------------------Add Ingredients---------------------------*/
+    @IBAction func submitOnClick(_ sender: Any){
+        // setting the range for the regex
+        let range = NSRange(location: 0, length: ingredientsTextField.text!.count)
+        // regex pattern to eleminate numbers being inputted
+        let regex = try! NSRegularExpression(pattern:"^[A-Za-z ]+$")
+        
+        // if theres text in the input field AND it doesnt contain any letters
+        if(!ingredientsTextField.text!.isEmpty && regex.firstMatch(in: ingredientsTextField.text!, options: [], range: range) != nil){
+            ingredients.append(ingredientsTextField.text!.lowercased())
+            var uniqueIngredients = Array(Set(ingredients))
+            uniqueIngredients.sort()
+            ingredients = uniqueIngredients
+            ingredientsTextField.backgroundColor = UIColor(red: 0, green: 50, blue: 255, alpha: 1)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                self.ingredientsTextField.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
+            }
+        }else{
+            ingredientsTextField.backgroundColor = UIColor(red: 255, green: 0, blue: 0, alpha: 1)
+            ingredientsTextField.shake(textField: ingredientsTextField)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.ingredientsTextField.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
+            }
         }
+        
+        ingredientsTableView.reloadData()
+        ingredientsTextField.text! = ""
     }
     
+    /*func displayError() async{
+        try await Task.sleep(nanoseconds: UInt64(1 * Double(NSEC_PER_SEC)))
+    }
+     */
     
     
+    /*-----------------------Delete Ingredients---------------------------*/
+    @IBAction func ingredientButton(_ sender: UIButton) {
+        // delete the row from the array
+        ingredients.remove(at: sender.tag)
+        // delete the row
+        ingredientsTableView.deleteRows(at:[IndexPath(row:sender.tag,section:0)],with:.fade)
+        // reload the data
+        ingredientsTableView.reloadData()
+    }
     
-    
-    
-    
-    
-    
+    /*-----------------------Find Recipes Button---------------------------*/
     @IBAction func FindRecipesOnClick(_ sender: Any) {
+        searchHistory.append(ingredients)
+        print(searchHistory)
+
+        
+        /*
+        ingredients.append(ingredientsTextField.text!.lowercased())
+        var uniqueIngredients = Array(Set(ingredients))
+        uniqueIngredients.sort()
+        searchHistory.append(ingredients)
+        print(searchHistory[0])*/
         // createing an object of the resource details controller
         let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
-        self.navigationController?.pushViewController(recipeCategory, animated: true)
+        //self.navigationController?.pushViewController(recipeCategory, animated: true)
     }
     
 
 }
-
+extension UIView {
+    func shake(duration timeDuration: Double = 0.07, repeat countRepeat: Float = 3, textField ingredientsTextField: UITextField){
+        ingredientsTextField.backgroundColor = UIColor(red: 255, green: 0, blue: 0, alpha: 1)
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = timeDuration
+        animation.repeatCount = countRepeat
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 5, y: self.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 5, y: self.center.y))
+        self.layer.add(animation, forKey: "position")
+        
+        //ingredientsTextField.backgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
+        
+    }
+}

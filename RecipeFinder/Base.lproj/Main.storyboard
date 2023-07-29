@@ -33,16 +33,27 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="202" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQn-Lp-KGC">
-                                                            <rect key="frame" x="16" y="4" width="170" height="35"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ingredient" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1M5-8H-Up7">
+                                                            <rect key="frame" x="16" y="11" width="140" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J7b-Nl-0ZD">
+                                                            <rect key="frame" x="159" y="4" width="36" height="35"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="gray" title="X"/>
+                                                            <connections>
+                                                                <action selector="ingredientButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0VO-zc-5ul"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="ingredientButton" destination="IQn-Lp-KGC" id="iwR-h7-1Fb"/>
+                                                    <outlet property="ingredientButton" destination="J7b-Nl-0ZD" id="vvg-mR-QJZ"/>
+                                                    <outlet property="ingredientLabel" destination="1M5-8H-Up7" id="9QH-P5-ysP"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -111,6 +122,7 @@
                     <connections>
                         <outlet property="ingredientsTableView" destination="Izi-Ip-5Oh" id="pHK-fv-JDV"/>
                         <outlet property="ingredientsTextField" destination="1Ew-cn-A9X" id="Uov-7H-10w"/>
+                        <outlet property="ingredientsViewController" destination="8bC-Xf-vdC" id="5oA-qB-wzn"/>
                         <segue destination="rlK-dy-Uee" kind="show" id="BvW-0M-xZT"/>
                     </connections>
                 </viewController>

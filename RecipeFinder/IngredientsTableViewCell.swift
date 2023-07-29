@@ -9,7 +9,9 @@ import UIKit
 
 class IngredientsTableViewCell: UITableViewCell {
     
+
     @IBOutlet weak var ingredientButton: UIButton!
+    @IBOutlet weak var ingredientLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +22,6 @@ class IngredientsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
 
 }
