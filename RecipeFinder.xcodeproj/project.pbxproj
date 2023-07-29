@@ -14,6 +14,9 @@
 		49F32C312A71BA4A008B192D /* RecipeFinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C2F2A71BA4A008B192D /* RecipeFinder.xcdatamodeld */; };
 		49F32C332A71BA4C008B192D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49F32C322A71BA4C008B192D /* Assets.xcassets */; };
 		49F32C362A71BA4C008B192D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49F32C342A71BA4C008B192D /* LaunchScreen.storyboard */; };
+		49F32C3E2A71CD26008B192D /* RecipeCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C3D2A71CD26008B192D /* RecipeCategoryController.swift */; };
+		49F32C422A71CDE6008B192D /* RecipesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C412A71CDE6008B192D /* RecipesController.swift */; };
+		49F32C442A71CE0F008B192D /* RecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C432A71CE0F008B192D /* RecipeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		49F32C322A71BA4C008B192D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49F32C352A71BA4C008B192D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49F32C372A71BA4C008B192D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49F32C3D2A71CD26008B192D /* RecipeCategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCategoryController.swift; sourceTree = "<group>"; };
+		49F32C412A71CDE6008B192D /* RecipesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesController.swift; sourceTree = "<group>"; };
+		49F32C432A71CE0F008B192D /* RecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +67,9 @@
 				49F32C262A71BA4A008B192D /* AppDelegate.swift */,
 				49F32C282A71BA4A008B192D /* SceneDelegate.swift */,
 				49F32C2A2A71BA4A008B192D /* ViewController.swift */,
+				49F32C3D2A71CD26008B192D /* RecipeCategoryController.swift */,
+				49F32C412A71CDE6008B192D /* RecipesController.swift */,
+				49F32C432A71CE0F008B192D /* RecipeController.swift */,
 				49F32C2C2A71BA4A008B192D /* Main.storyboard */,
 				49F32C322A71BA4C008B192D /* Assets.xcassets */,
 				49F32C342A71BA4C008B192D /* LaunchScreen.storyboard */,
@@ -142,9 +151,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				49F32C2B2A71BA4A008B192D /* ViewController.swift in Sources */,
+				49F32C3E2A71CD26008B192D /* RecipeCategoryController.swift in Sources */,
+				49F32C442A71CE0F008B192D /* RecipeController.swift in Sources */,
 				49F32C312A71BA4A008B192D /* RecipeFinder.xcdatamodeld in Sources */,
 				49F32C272A71BA4A008B192D /* AppDelegate.swift in Sources */,
 				49F32C292A71BA4A008B192D /* SceneDelegate.swift in Sources */,
+				49F32C422A71CDE6008B192D /* RecipesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
