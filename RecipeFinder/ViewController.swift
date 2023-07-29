@@ -94,23 +94,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     /*-----------------------Find Recipes Button---------------------------*/
     @IBAction func FindRecipesOnClick(_ sender: Any) {
-        searchHistory.append(ingredients)
+        // make a set from the ingredient list to remove duplicates
+       var ingredientsSet = Set(ingredients)
+        // create a boolean to set to true if the record is a subset
+        var result = false
+        // loop through each record in the search history and check if the current ingredient set is a subset of any of the saved sets
+        for record in searchHistory{
+            if(ingredientsSet.isSubset(of: record)){
+                result = true
+            }
+        }
+        //if there was a match and the current record is a subset do nothing
+        if(result){
+            
+        }//otherwise add the current record to the search history
+        else{
+            searchHistory.append(ingredients)
+        }
+                
+        // check if the newly added set is a superset of any others - if so remove the subset
+        var recordNo = 0
+        //loop through the search history and make a set varible of each record.
+        for record in searchHistory{
+            var recordSet = Set(record)
+            // create an iterator to keep track of which record were on in the nested loop that follows
+            var iterator = 0
+            // loop through the search history again and check if any of the sets are a subset of the record were on in the parent loop.
+            for records in searchHistory{
+                //if the record is a subset of the parent loops set, remove it
+                if(recordSet.isSuperset(of: records) && recordNo != iterator){
+                    // if true remove records from array
+                    searchHistory.remove(at: iterator)
+                }
+                iterator += 1
+            }
+            recordNo += 1
+        }
         print(searchHistory)
-
+        // *** need to save search history at this point before the next page loads.
         
-        /*
+        
+        
+        
+        
+        
+        /* ***Not sure if we still need this??? ***
         ingredients.append(ingredientsTextField.text!.lowercased())
         var uniqueIngredients = Array(Set(ingredients))
         uniqueIngredients.sort()
         searchHistory.append(ingredients)
-        print(searchHistory[0])*/
+        print(searchHistory[0]) */
+        
         // createing an object of the resource details controller
-        let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
+        //let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
         //self.navigationController?.pushViewController(recipeCategory, animated: true)
     }
     
 
 }
+// extension for shaking the text view when incorrect input is entered
 extension UIView {
     func shake(duration timeDuration: Double = 0.07, repeat countRepeat: Float = 3, textField ingredientsTextField: UITextField){
         ingredientsTextField.backgroundColor = UIColor(red: 255, green: 0, blue: 0, alpha: 1)
