@@ -76,7 +76,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="uWO-aU-jDr">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="uWO-aU-jDr" customClass="HistoryTableViewCell" customModule="RecipeFinder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="136" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uWO-aU-jDr" id="Nh9-gH-lpY">
@@ -96,6 +96,9 @@
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="historyButtonMenu" destination="kmN-qh-bg9" id="9Y2-Vg-n1F"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -120,6 +123,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Ingredients" id="FRd-48-naq"/>
                     <connections>
+                        <outlet property="historyTableView" destination="P9c-EM-REz" id="nDh-ja-XYu"/>
                         <outlet property="ingredientsTableView" destination="Izi-Ip-5Oh" id="pHK-fv-JDV"/>
                         <outlet property="ingredientsTextField" destination="1Ew-cn-A9X" id="Uov-7H-10w"/>
                         <outlet property="ingredientsViewController" destination="8bC-Xf-vdC" id="5oA-qB-wzn"/>

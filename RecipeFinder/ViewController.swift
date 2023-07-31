@@ -10,6 +10,7 @@ import Darwin
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
+    @IBOutlet weak var historyTableView: UITableView!
     @IBOutlet var ingredientsViewController: UIView!
     @IBOutlet weak var ingredientsTableView: UITableView!
     @IBOutlet weak var ingredientsTextField: UITextField!
@@ -31,18 +32,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     /*-----------------------Ingredients Table View---------------------------*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // getting the amount of ingredients in the view
-        return ingredients.count
+        if(tableView == ingredientsTableView){
+            return ingredients.count
+        }else{
+            return searchHistory.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // creating an instance of the cell template
-        let tempCell:IngredientsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! IngredientsTableViewCell
-        // setting the label to the ingredient
-        tempCell.ingredientLabel!.text = ingredients[indexPath.row]
-        //setting the tag value to the row number in the table view
-        tempCell.ingredientButton.tag = indexPath.row
-        //return the cell
-        return tempCell
+        if(tableView == ingredientsTableView){
+            // creating an instance of the cell template
+            let tempCell:IngredientsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! IngredientsTableViewCell
+            // setting the label to the ingredient
+            tempCell.ingredientLabel!.text = ingredients[indexPath.row]
+            //setting the tag value to the row number in the table view
+            tempCell.ingredientButton.tag = indexPath.row
+            //return the cell
+            return tempCell
+        }else{
+            // creating an instance of the cell template
+            let tempCell:HistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! HistoryTableViewCell
+            // SET MENU OPTIONS HERE:
+            //----------------------//
+            //return the cell
+            return tempCell
+        }
         
     }
 

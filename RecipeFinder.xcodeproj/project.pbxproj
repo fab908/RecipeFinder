@@ -18,6 +18,7 @@
 		49F32C422A71CDE6008B192D /* RecipesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C412A71CDE6008B192D /* RecipesController.swift */; };
 		49F32C442A71CE0F008B192D /* RecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C432A71CE0F008B192D /* RecipeController.swift */; };
 		49F32C4A2A759597008B192D /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C492A759597008B192D /* IngredientsTableViewCell.swift */; };
+		49F32C4E2A786C08008B192D /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C4D2A786C08008B192D /* HistoryTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		49F32C412A71CDE6008B192D /* RecipesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesController.swift; sourceTree = "<group>"; };
 		49F32C432A71CE0F008B192D /* RecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeController.swift; sourceTree = "<group>"; };
 		49F32C492A759597008B192D /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
+		49F32C4D2A786C08008B192D /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				49F32C342A71BA4C008B192D /* LaunchScreen.storyboard */,
 				49F32C372A71BA4C008B192D /* Info.plist */,
 				49F32C2F2A71BA4A008B192D /* RecipeFinder.xcdatamodeld */,
+				49F32C4D2A786C08008B192D /* HistoryTableViewCell.swift */,
 			);
 			path = RecipeFinder;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49F32C4E2A786C08008B192D /* HistoryTableViewCell.swift in Sources */,
 				49F32C4A2A759597008B192D /* IngredientsTableViewCell.swift in Sources */,
 				49F32C2B2A71BA4A008B192D /* ViewController.swift in Sources */,
 				49F32C3E2A71CD26008B192D /* RecipeCategoryController.swift in Sources */,
