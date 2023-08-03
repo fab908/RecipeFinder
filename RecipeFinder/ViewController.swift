@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var ingredientsTextField: UITextField!
     var ingredients: [String] = []
     var searchHistory = [[String]]()
-    
+
     
     /*-----------------------On startup---------------------------*/
     override func viewDidLoad() {
@@ -53,11 +53,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //return the cell
             return tempCell
         }else{
+            print(indexPath.row)
             // creating an instance of the cell template
             let tempCell:HistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! HistoryTableViewCell
             // SET MENU OPTIONS HERE:
             //----------------------//
-            tempCell.historyButton?.setValue(title, forKey: "Search 1")
+            tempCell.buttonLabel.text = "Search \(indexPath.row + 1)"
+            tempCell.historyButton?.tag = indexPath.row
+            let menuItems = searchHistory[indexPath.row]
+            let menu = UIMenu(title: "Options")
             //return the cell
             return tempCell
         }

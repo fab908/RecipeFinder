@@ -75,12 +75,12 @@
 				49F32C412A71CDE6008B192D /* RecipesController.swift */,
 				49F32C432A71CE0F008B192D /* RecipeController.swift */,
 				49F32C492A759597008B192D /* IngredientsTableViewCell.swift */,
+				49F32C4D2A786C08008B192D /* HistoryTableViewCell.swift */,
 				49F32C2C2A71BA4A008B192D /* Main.storyboard */,
 				49F32C322A71BA4C008B192D /* Assets.xcassets */,
 				49F32C342A71BA4C008B192D /* LaunchScreen.storyboard */,
 				49F32C372A71BA4C008B192D /* Info.plist */,
 				49F32C2F2A71BA4A008B192D /* RecipeFinder.xcdatamodeld */,
-				49F32C4D2A786C08008B192D /* HistoryTableViewCell.swift */,
 			);
 			path = RecipeFinder;
 			sourceTree = "<group>";

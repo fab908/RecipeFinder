@@ -9,6 +9,7 @@ import UIKit
 
 class HistoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var buttonLabel: UILabel!
     @IBOutlet weak var historyButton: UIButton!
     @IBOutlet weak var historyButtonMenu: UIMenu!
     override func awakeFromNib() {
