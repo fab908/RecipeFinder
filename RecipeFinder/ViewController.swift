@@ -60,9 +60,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //----------------------//
             tempCell.buttonLabel.text = "Search \(indexPath.row + 1)"
             tempCell.historyButton?.tag = indexPath.row
+            
+            
+            
+            
             let menuItems = searchHistory[indexPath.row]
-            let menu = UIMenu(title: "Options")
+            
+            var menuObjects: [UIAction] = []
+            
+            for item in menuItems {
+                
+                let tempItem = UIAction(title: item, image: UIImage(systemName: "arrow.clockwise")) { (_) in
+                     // handle refresh
+                }
+
+                menuObjects.insert(tempItem, at: 0)
+
+            }
+            
+            let menu = UIMenu(title: "", children: menuObjects)
             //return the cell
+            
+            print(menuObjects)
+            
+            
+            
             return tempCell
         }
         
