@@ -25,6 +25,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // setting the delegate and dataSource as it wasn't working automatically for some reason
         ingredientsTableView.delegate = self
         ingredientsTableView.dataSource = self
+        historyTableView.delegate = self
+        historyTableView.dataSource = self
     }
     
     
@@ -55,6 +57,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let tempCell:HistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! HistoryTableViewCell
             // SET MENU OPTIONS HERE:
             //----------------------//
+            tempCell.historyButton?.setValue(title, forKey: "Search 1")
             //return the cell
             return tempCell
         }
@@ -145,6 +148,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             recordNo += 1
         }
+        historyTableView.reloadData()
         print(searchHistory)
         // *** need to save search history at this point before the next page loads.
         
