@@ -29,7 +29,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         historyTableView.dataSource = self
     }
     
-    
+    /*func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+       
+    }*/
     
     /*-----------------------Ingredients Table View---------------------------*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,7 +43,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(tableView == ingredientsTableView){
             // creating an instance of the cell template
@@ -58,9 +59,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let tempCell:HistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! HistoryTableViewCell
             // SET MENU OPTIONS HERE:
             //----------------------//
-            tempCell.buttonLabel.text = "Search \(indexPath.row + 1)"
+            //tempCell.buttonLabel.text = "Search \(indexPath.row + 1)"
             tempCell.historyButton?.tag = indexPath.row
-            
             
             
             
@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             for item in menuItems {
                 
-                let tempItem = UIAction(title: item, image: UIImage(systemName: "arrow.clockwise")) { (_) in
+                let tempItem = UIAction(title: item, image: UIImage(systemName: "arrow.clockwise"), identifier: nil) { (_) in
                      // handle refresh
                 }
 
@@ -80,6 +80,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let menu = UIMenu(title: "", children: menuObjects)
             //return the cell
+            tempCell.historyButton?.menu = menu
+            tempCell.historyButton?.showsMenuAsPrimaryAction = true
+            tempCell.historyButton?.changesSelectionAsPrimaryAction = true
             
             print(menuObjects)
             
@@ -125,7 +128,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
      */
     
-    
+    /*-----------------------Clicking a search history button---------------------------*/
+    @IBAction func historyButtonOnClick(_ sender: UIButton) {
+       // historyTableView.selectRow(at: [IndexPath(row:sender.tag,section:0)], animated: <#T##Bool#>, scrollPosition: <#T##UITableView.ScrollPosition#>)
+        print("clicked")
+    }
     /*-----------------------Delete Ingredients---------------------------*/
     @IBAction func ingredientButton(_ sender: UIButton) {
         // delete the row from the array
@@ -178,21 +185,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(searchHistory)
         // *** need to save search history at this point before the next page loads.
         
-        
-        
-        
-        
-        
-        /* ***Not sure if we still need this??? ***
-        ingredients.append(ingredientsTextField.text!.lowercased())
-        var uniqueIngredients = Array(Set(ingredients))
-        uniqueIngredients.sort()
-        searchHistory.append(ingredients)
-        print(searchHistory[0]) */
-        
         // createing an object of the resource details controller
-        //let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
-        //self.navigationController?.pushViewController(recipeCategory, animated: true)
+        let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
+        self.navigationController?.pushViewController(recipeCategory, animated: true)
+        recipeCategory.ingredients = ingredients
     }
     
 

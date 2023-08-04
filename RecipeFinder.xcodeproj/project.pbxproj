@@ -19,6 +19,7 @@
 		49F32C442A71CE0F008B192D /* RecipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C432A71CE0F008B192D /* RecipeController.swift */; };
 		49F32C4A2A759597008B192D /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C492A759597008B192D /* IngredientsTableViewCell.swift */; };
 		49F32C4E2A786C08008B192D /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C4D2A786C08008B192D /* HistoryTableViewCell.swift */; };
+		49F32C502A7C785E008B192D /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C4F2A7C785E008B192D /* ApiManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		49F32C432A71CE0F008B192D /* RecipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeController.swift; sourceTree = "<group>"; };
 		49F32C492A759597008B192D /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		49F32C4D2A786C08008B192D /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		49F32C4F2A7C785E008B192D /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				49F32C342A71BA4C008B192D /* LaunchScreen.storyboard */,
 				49F32C372A71BA4C008B192D /* Info.plist */,
 				49F32C2F2A71BA4A008B192D /* RecipeFinder.xcdatamodeld */,
+				49F32C4F2A7C785E008B192D /* ApiManager.swift */,
 			);
 			path = RecipeFinder;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			files = (
 				49F32C4E2A786C08008B192D /* HistoryTableViewCell.swift in Sources */,
 				49F32C4A2A759597008B192D /* IngredientsTableViewCell.swift in Sources */,
+				49F32C502A7C785E008B192D /* ApiManager.swift in Sources */,
 				49F32C2B2A71BA4A008B192D /* ViewController.swift in Sources */,
 				49F32C3E2A71CD26008B192D /* RecipeCategoryController.swift in Sources */,
 				49F32C442A71CE0F008B192D /* RecipeController.swift in Sources */,

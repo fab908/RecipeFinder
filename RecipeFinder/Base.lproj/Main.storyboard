@@ -86,13 +86,16 @@
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5d-qE-exJ">
                                                     <rect key="frame" x="0.0" y="0.0" width="136" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <menu key="menu" id="kmN-qh-bg9">
+                                                    <menu key="menu" identifier="historyButtonMenu" id="kmN-qh-bg9">
                                                         <children>
-                                                            <command title="Item 1" id="z2p-rk-Zs6"/>
                                                             <command title="Item 2" id="jEz-Oi-gIc"/>
                                                         </children>
                                                     </menu>
                                                     <state key="normal" title="v"/>
+                                                    <connections>
+                                                        <action selector="historyButtonOnClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2nn-CI-y3e"/>
+                                                        <action selector="historyButtonOnClick:" destination="uWO-aU-jDr" eventType="touchUpInside" id="fYy-xy-4dt"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRz-lG-c6a">
                                                     <rect key="frame" x="16" y="11" width="104" height="21"/>

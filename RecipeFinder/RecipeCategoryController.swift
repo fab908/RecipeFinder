@@ -8,7 +8,7 @@
 import UIKit
 
 class RecipeCategoryController: UIViewController {
-
+    var ingredients: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
