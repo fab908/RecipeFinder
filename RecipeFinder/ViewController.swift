@@ -207,8 +207,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         func cslIngerdients(ingredients: [String]) -> String {
             var returnValue = ""
+            var i = 0
             for ingredient in ingredients {
-                returnValue = returnValue     + "\(ingredient),"
+               
+                var escapedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
+                i = i + 1
+                if(i==1){
+                    returnValue = returnValue     + "\(escapedIngredient)"
+                    
+                }
+                else{
+                    returnValue = returnValue     + ",\(escapedIngredient)"
+                    
+                }
+                
+               
                 
             }
             
@@ -237,7 +250,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
        
             struct Nested: Codable {
-                let strMeal, strMealThumb, idMeal: String?
+                let strMeal, strMealThumb, idMeal: String
             }
             
             struct root: Codable {
