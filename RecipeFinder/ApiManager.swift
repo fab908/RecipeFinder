@@ -8,10 +8,7 @@
 import Foundation
 class ApiManager{
     
-    struct RecipeResponse{
-        let result: [Recipe]
-    }
-    struct Recipe{
-        
-    }
-}
+    
+
+                                      
+                                      }

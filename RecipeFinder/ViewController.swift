@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
        
     }*/
     
-    /*-----------------------Ingredients Table View---------------------------*/
+    /*----------------------- Table View setup---------------------------*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // getting the amount of ingredients in the view
         if(tableView == ingredientsTableView){
@@ -185,12 +185,94 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(searchHistory)
         // *** need to save search history at this point before the next page loads.
         
+        /* try to move to apiManager Class */
+        //do api for filterByMultiingerdient
+        filterByIngredient(ingredients: ingredients)
+        //do api for all categories
+        //create set for any categories contained in first api call
+    
+        
         // createing an object of the resource details controller
         let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
         self.navigationController?.pushViewController(recipeCategory, animated: true)
         recipeCategory.ingredients = ingredients
     }
     
+    
+    
+    
+    /* API call function section */
+    
+    func filterByIngredient(ingredients: [String]) {
+        
+        func cslIngerdients(ingredients: [String]) -> String {
+            var returnValue = ""
+            for ingredient in ingredients {
+                returnValue = returnValue     + "\(ingredient),"
+                
+            }
+            
+            return returnValue
+        }
+        
+        
+    let headers = [
+        "X-RapidAPI-Key": "34b3adc60fmsh158723caa37e992p123c89jsnf450fd015e4b",
+        "X-RapidAPI-Host": "themealdb.p.rapidapi.com",
+        "Content-Type":    "application/json"   ]
+
+    let request = NSMutableURLRequest(url: NSURL(string: "https://themealdb.p.rapidapi.com/filter.php?i=\(cslIngerdients(ingredients: ingredients))")! as URL,
+                                            cachePolicy: .useProtocolCachePolicy,
+                                        timeoutInterval: 10.0)
+    request.httpMethod = "GET"
+    request.allHTTPHeaderFields = headers
+
+    let session = URLSession.shared
+    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+        if (error != nil) {
+            print(error as Any)
+        } else {
+            let httpResponse = response as? HTTPURLResponse
+           //print(httpResponse)
+            
+       
+            struct Nested: Codable {
+                let strMeal, strMealThumb, idMeal: String?
+            }
+            
+            struct root: Codable {
+                let meals: [Nested]
+            }
+
+           
+
+                  if let data = data {
+                      do {
+                          let response = try JSONDecoder().decode(root.self, from: data)
+                          //do whatever with the decoded data
+                          var i=0
+                          let Count = response.meals.count
+                          print("# of total Recipies = \(Count)")
+                          for recipy in response.meals{
+                              i=i+1
+                              print("      ---Recipy #\(i)----      ")
+                              print(recipy)
+                          }
+                         
+                      }
+                      catch {
+                         // print(error) // or whatever error handling you want to do
+                      }
+                  }
+            
+                  
+                  
+        }
+    })
+
+    dataTask.resume()
+
+}
 
 }
 // extension for shaking the text view when incorrect input is entered
