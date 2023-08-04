@@ -186,10 +186,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // *** need to save search history at this point before the next page loads.
         
         /* try to move to apiManager Class */
-        //do api for filterByMultiingerdient
-        filterByIngredient(ingredients: ingredients)
-        //do api for all categories
-        //create set for any categories contained in first api call
+        
+        //do api for filterByMultiingerdient *done
+        var recipyList = filterByIngredient(ingredients: ingredients)
+        print("from api function call")
+        print(recipyList)
+        
+        //api call for each recipy to get its cateogry and populate the categories array
+        
+        
     
         
         // createing an object of the resource details controller
@@ -202,92 +207,112 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     /* API call function section */
+    struct Nested: Codable {
+        let strMeal, strMealThumb, idMeal: String
+    }//end struct
+    //declare the root struct for the request data
+    struct root: Codable {
+        let meals: [Nested]
+    }//end struct
     
-    func filterByIngredient(ingredients: [String]) {
-        
-        func cslIngerdients(ingredients: [String]) -> String {
+    //func filterByIngredient(ingredients: [String]) -> [Nested]{
+        func filterByIngredient(ingredients: [String]) {
+            
+            // anonumous function to convert the Array of ingredients [String] To a comma seperated list
+        func cslIngerdients(ingredients: [String]) -> String
+        {
+            //declare&initalise a return varible
             var returnValue = ""
+            //declare and initalise a counter
             var i = 0
+            //loop through each ingredient in the ingredients array passed to the function
             for ingredient in ingredients {
-               
+               //replace any spaces with underscores for api compatibility
                 var escapedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
+                //increment iterator
                 i = i + 1
+                //if were on first iteration dont add a comma
                 if(i==1){
                     returnValue = returnValue     + "\(escapedIngredient)"
-                    
-                }
+                }// otherwise add the comma
                 else{
                     returnValue = returnValue     + ",\(escapedIngredient)"
-                    
                 }
-                
-               
-                
-            }
-            
+            }// end for
+            // return the return value after loop completion
             return returnValue
-        }
+        }// end anonumous function
         
-        
+        // declare headers for API call
     let headers = [
         "X-RapidAPI-Key": "34b3adc60fmsh158723caa37e992p123c89jsnf450fd015e4b",
         "X-RapidAPI-Host": "themealdb.p.rapidapi.com",
         "Content-Type":    "application/json"   ]
-
+// API REquest stuff
     let request = NSMutableURLRequest(url: NSURL(string: "https://themealdb.p.rapidapi.com/filter.php?i=\(cslIngerdients(ingredients: ingredients))")! as URL,
                                             cachePolicy: .useProtocolCachePolicy,
                                         timeoutInterval: 10.0)
     request.httpMethod = "GET"
     request.allHTTPHeaderFields = headers
-
     let session = URLSession.shared
+        // working with the request data
+     //   var returnValue : [String]
     let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
         if (error != nil) {
             print(error as Any)
-        } else {
+        }// if theres no error in the request
+        else {
             let httpResponse = response as? HTTPURLResponse
-           //print(httpResponse)
+            // declare the nested struct for the request data
             
-       
-            struct Nested: Codable {
-                let strMeal, strMealThumb, idMeal: String
-            }
-            
-            struct root: Codable {
-                let meals: [Nested]
-            }
 
-           
-
-                  if let data = data {
+            if let data = data {
                       do {
                           let response = try JSONDecoder().decode(root.self, from: data)
                           //do whatever with the decoded data
+                         
+                          
                           var i=0
                           let Count = response.meals.count
                           print("# of total Recipies = \(Count)")
+                          
                           for recipy in response.meals{
                               i=i+1
                               print("      ---Recipy #\(i)----      ")
                               print(recipy)
-                          }
+                              //returnValue[i] = String(recipy)
+                              
+                              // need to somehow make this accessible outside the api call. Maybe create a return varible to populate and set that to a gloabal varible at the end of the function?
+                              
+                              
+                          }//end for
                          
-                      }
+                      }//end do
                       catch {
-                         // print(error) // or whatever error handling you want to do
-                      }
-                  }
+                      }//end catch
+                  }//end if let data
+        }//end else
+    })// end let datatask
+        dataTask.resume()
+        
+      // return returnValue
             
-                  
-                  
-        }
-    })
+        
+        
+        
+        
+    }// end filterByIngredient API call function
+    
+    
+    
+    
+    
+    
+    
+}// end class
 
-    dataTask.resume()
 
-}
 
-}
 // extension for shaking the text view when incorrect input is entered
 extension UIView {
     func shake(duration timeDuration: Double = 0.07, repeat countRepeat: Float = 3, textField ingredientsTextField: UITextField){
