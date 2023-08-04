@@ -188,9 +188,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         /* try to move to apiManager Class */
         
         //do api for filterByMultiingerdient *done
-        var recipyList = filterByIngredient(ingredients: ingredients)
-        print("from api function call")
-        print(recipyList)
+/*var recipyList = */ filterByIngredient(ingredients: ingredients)
+        //print("from api function call")
+        //print(recipyList)
         
         //api call for each recipy to get its cateogry and populate the categories array
         
@@ -207,14 +207,74 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     /* API call function section */
+    
+    
+    
+    
+    
+    
+    //structs for filterbyIngerdients API call
     struct Nested: Codable {
-        let strMeal, strMealThumb, idMeal: String
+        let idMeal, strMeal, strMealThumb: String
     }//end struct
-    //declare the root struct for the request data
+    struct NestedAlt: Codable {
+        let idMeal, strMeal, strMealThumb: String
+        let strDrinkAlternate, strCategory, strArea, strInstructions, strTags, strYoutube: String?
+        let strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20: String?
+        let strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20: String?
+    }//end struct    //declare the root struct for the request data
     struct root: Codable {
         let meals: [Nested]
     }//end struct
+    struct rootAlt: Codable {
+        let meals: [NestedAlt]
+    }//end struct
+
+  
+    // recipy lookup API function
     
+    func recipyLookup(recipyId: Int32) {
+    let headers = [
+        "X-RapidAPI-Key": "14fc04b22fmsh316f7bb4d82555dp166249jsn7a012b0bd69e",
+        "X-RapidAPI-Host": "themealdb.p.rapidapi.com"
+    ]
+
+    let request = NSMutableURLRequest(url: NSURL(string: "https://themealdb.p.rapidapi.com/lookup.php?i=\(recipyId)")! as URL,
+                                            cachePolicy: .useProtocolCachePolicy,
+                                        timeoutInterval: 10.0)
+    request.httpMethod = "GET"
+    request.allHTTPHeaderFields = headers
+
+    let session = URLSession.shared
+    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+        if (error != nil) {
+            print(error as Any)
+        } else {
+           // let httpResponse = response as? HTTPURLResponse
+           // print(httpResponse)
+            
+            if let data = data {
+                      do {
+                          let response = try JSONDecoder().decode(rootAlt.self, from: data)
+                          //do whatever with the decoded data
+                         
+                          
+                          var i=0
+                          let Count = response.meals.count
+                          print("Full Recipy for recipyID : \(recipyId)")
+                          print(response)
+                          
+                          
+                         
+                      }//end do
+                      catch {
+                      }//end catch
+                  }//end if let data
+        }
+    })
+
+    dataTask.resume()
+    }
     //func filterByIngredient(ingredients: [String]) -> [Nested]{
         func filterByIngredient(ingredients: [String]) {
             
@@ -282,7 +342,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                               print(recipy)
                               //returnValue[i] = String(recipy)
                               
-                              // need to somehow make this accessible outside the api call. Maybe create a return varible to populate and set that to a gloabal varible at the end of the function?
+                              // need to somehow make this accessible outside the api call. Maybe create a return varible to populate and set that to a gloabal varible at the end of the function?// or do second api clal here?
+                              
+                              self.recipyLookup(recipyId: Int32(recipy.idMeal ) ?? 0)
                               
                               
                           }//end for
@@ -302,8 +364,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
     }// end filterByIngredient API call function
-    
-    
     
     
     
