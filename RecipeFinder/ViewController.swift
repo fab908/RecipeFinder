@@ -188,19 +188,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         /* try to move to apiManager Class */
         
         //do api for filterByMultiingerdient *done
-        /*var recipyList = */ Task {
-            var recipeIds: [Int] = await filterByIngredient(ingredients: ingredients)
-            var tempStruct: NestedAlt = NestedAlt(idMeal: "", strMeal: "", strMealThumb: "", strDrinkAlternate: "", strCategory: "", strArea: "", strInstructions: "", strTags: "", strYoutube: "", strIngredient1: "", strIngredient2: "", strIngredient3: "", strIngredient4: "", strIngredient5: "", strIngredient6: "", strIngredient7: "", strIngredient8: "", strIngredient9: "", strIngredient10: "", strIngredient11: "", strIngredient12: "", strIngredient13: "", strIngredient14: "", strIngredient15: "", strIngredient16: "", strIngredient17: "", strIngredient18: "", strIngredient19: "", strIngredient20: "", strMeasure1: "", strMeasure2: "", strMeasure3: "", strMeasure4: "", strMeasure5: "", strMeasure6: "", strMeasure7: "", strMeasure8: "", strMeasure9: "", strMeasure10: "", strMeasure11: "", strMeasure12: "", strMeasure13: "", strMeasure14: "", strMeasure15: "", strMeasure16: "", strMeasure17: "", strMeasure18: "", strMeasure19: "", strMeasure20: "")
-            var fullRecipyList: [rootAlt] = []
-            var i = 0
-            for recipy in recipeIds{
-                var fullRecipy: rootAlt =  await recipyLookup(recipyId: Int32(recipy))
-                fullRecipyList[i] = fullRecipy
+        /*var recipyList = */
+        Task {
+            Task {
+                let extractedIDs = await withUnsafeContinuation { continuation in
+                    filterByIngredient(ingredients: ingredients) { result in
+                        continuation.resume(returning: result)
+                    }
+                }
+                
+                print("Extracted IDs: \(extractedIDs)")
+               
+                
+                
+                Task {
+                    var fullRecipyList: [rootAlt] = []
+                    for recipy in extractedIDs{
+                        
+                        recipyLookup(recipyId: Int32(recipy)) { result in
+                            print("Returned result: \(result)")
+                            // ... Use the result as needed ...
+                            fullRecipyList.append(result)
+                        }
+                    }
+                    print(fullRecipyList)
+                    
+                // do something here with data
+                    
+                }
             }
-            print("----------Full Recipy List--------------------*****************")
-            print(fullRecipyList)
         }
-       
+        
         //print("from api function call")
         //print(recipyList)
         
@@ -247,8 +265,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var tempCategorySet = Set<String>()
     
     
-    
-    func recipyLookup(recipyId: Int32) async -> rootAlt{
+    @MainActor
+    func recipyLookup(recipyId: Int32, completion: @escaping (rootAlt) -> Void) {
+        
         let headers = [
             "X-RapidAPI-Key": "14fc04b22fmsh316f7bb4d82555dp166249jsn7a012b0bd69e",
             "X-RapidAPI-Host": "themealdb.p.rapidapi.com"
@@ -261,46 +280,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         request.allHTTPHeaderFields = headers
         
         let session = URLSession.shared
-        var tempStruct: NestedAlt = NestedAlt(idMeal: "", strMeal: "", strMealThumb: "", strDrinkAlternate: "", strCategory: "", strArea: "", strInstructions: "", strTags: "", strYoutube: "", strIngredient1: "", strIngredient2: "", strIngredient3: "", strIngredient4: "", strIngredient5: "", strIngredient6: "", strIngredient7: "", strIngredient8: "", strIngredient9: "", strIngredient10: "", strIngredient11: "", strIngredient12: "", strIngredient13: "", strIngredient14: "", strIngredient15: "", strIngredient16: "", strIngredient17: "", strIngredient18: "", strIngredient19: "", strIngredient20: "", strMeasure1: "", strMeasure2: "", strMeasure3: "", strMeasure4: "", strMeasure5: "", strMeasure6: "", strMeasure7: "", strMeasure8: "", strMeasure9: "", strMeasure10: "", strMeasure11: "", strMeasure12: "", strMeasure13: "", strMeasure14: "", strMeasure15: "", strMeasure16: "", strMeasure17: "", strMeasure18: "", strMeasure19: "", strMeasure20: "")
-        var returnValue: rootAlt = rootAlt(meals: [tempStruct])
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            if (error != nil) {
-                print(error as Any)
-            } else {
-                // let httpResponse = response as? HTTPURLResponse
-                // print(httpResponse)
+      
+        
+        let dataTask = session.dataTask(with: request as URLRequest) { data, response, error in
+                if let error = error {
+                    print(error as Any)
+                    completion(rootAlt(meals: []))
+                    return
+                }
                 
                 if let data = data {
                     do {
                         let response = try JSONDecoder().decode(rootAlt.self, from: data)
-                        //do whatever with the decoded data
-                        
-                        
-                        var i=0
-                        
-                        //                        print("Full Recipy for recipyID : \(recipyId)")
-                        //                        print(response)
-                        
-                        // at this point we need to populate a set of categories
-                        for recipy in response.meals{
-                            // then create an object(struct?) for each meal and instanciate it maybe? -- else create another set of meals
-                            self.tempCategorySet.insert(recipy.strCategory ?? "")
-                        }
-                        
-                        
-                        
-                    }//end do
-                    catch {
-                    }//end catch
-                }//end if let data
+                        completion(response)
+                    } catch {
+                        print(error)
+                        completion(rootAlt(meals: []))
+                    }
+                } else {
+                    completion(rootAlt(meals: []))
+                }
             }
-        })
-        
-        dataTask.resume()
-        return returnValue
+            
+            dataTask.resume()
     }
     //func filterByIngredient(ingredients: [String]) -> [root]{
-    func filterByIngredient(ingredients: [String]) async -> [Int]{
+    @MainActor
+    func filterByIngredient(ingredients: [String], completion: @escaping ([Int]) -> Void) {
         
         // anonumous function to convert the Array of ingredients [String] To a comma seperated list
         func cslIngerdients(ingredients: [String]) -> String
@@ -340,7 +346,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         request.allHTTPHeaderFields = headers
         let session = URLSession.shared
         // working with the request data
-        var returnValue: [Int] = []
+        
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
                 print(error as Any)
@@ -351,39 +357,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 
                 if let data = data {
+                    var returnValue: [Int] = []
+                    
                     do {
                         let response = try JSONDecoder().decode(root.self, from: data)
-                        //do whatever with the decoded data
                         
+                        var i = 0
+                        for recipy in response.meals {
+                            if let idMeal = Int(recipy.idMeal) {
+                                returnValue.append(idMeal)
+                            }
+                            i += 1
+                        }
                         
-                        var i=0
-                        let Count = response.meals.count
-                        print("# of total Recipies = \(Count)")
-                       
-                        for recipy in response.meals{
-                            returnValue[i] = Int(recipy.idMeal) ?? -1
-                            i=i+1
-                          /*  print("      ---Recipy #\(i)----      ")
-                            print(recipy)*/
-                           
-                            
-                            // need to somehow make this accessible outside the api call. Maybe create a return varible to populate and set that to a gloabal varible at the end of the function?// or do second api clal here?
-                            
-                            
-                            
-                            
-                        }//end for
-                        
-                        //**need to find a better way to do this async
-                        /*DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                            print("--------------------------------------Temp Category Set----------------------------------------------")
-                            print(self.tempCategorySet)
-
-                        }*/
-                        
-                    }//end do
-                    catch {
-                    }//end catch
+                    } catch {
+                        print(error)
+                    }
+                    //end catch
+                    // Call the completion handler with the extracted values
+                    completion(returnValue)
+                    
                 }//end if let data
                 
                 
@@ -393,7 +386,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // return returnValue
         
-        return returnValue
+        
         
         
         
