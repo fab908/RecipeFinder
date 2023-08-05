@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var ingredientsTextField: UITextField!
     var ingredients: [String] = []
     var searchHistory = [[String]]()
-
+    
     
     /*-----------------------On startup---------------------------*/
     override func viewDidLoad() {
@@ -30,8 +30,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     /*func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-       
-    }*/
+     
+     }*/
     
     /*----------------------- Table View setup---------------------------*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,11 +71,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             for item in menuItems {
                 
                 let tempItem = UIAction(title: item, image: UIImage(systemName: "arrow.clockwise"), identifier: nil) { (_) in
-                     // handle refresh
+                    // handle refresh
                 }
-
+                
                 menuObjects.insert(tempItem, at: 0)
-
+                
             }
             
             let menu = UIMenu(title: "", children: menuObjects)
@@ -92,7 +92,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-
+    
     
     /*-----------------------Add Ingredients---------------------------*/
     @IBAction func submitOnClick(_ sender: Any){
@@ -124,13 +124,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     /*func displayError() async{
-        try await Task.sleep(nanoseconds: UInt64(1 * Double(NSEC_PER_SEC)))
-    }
+     try await Task.sleep(nanoseconds: UInt64(1 * Double(NSEC_PER_SEC)))
+     }
      */
     
     /*-----------------------Clicking a search history button---------------------------*/
     @IBAction func historyButtonOnClick(_ sender: UIButton) {
-       // historyTableView.selectRow(at: [IndexPath(row:sender.tag,section:0)], animated: <#T##Bool#>, scrollPosition: <#T##UITableView.ScrollPosition#>)
+        // historyTableView.selectRow(at: [IndexPath(row:sender.tag,section:0)], animated: <#T##Bool#>, scrollPosition: <#T##UITableView.ScrollPosition#>)
         print("clicked")
     }
     /*-----------------------Delete Ingredients---------------------------*/
@@ -146,7 +146,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     /*-----------------------Find Recipes Button---------------------------*/
     @IBAction func FindRecipesOnClick(_ sender: Any) {
         // make a set from the ingredient list to remove duplicates
-       var ingredientsSet = Set(ingredients)
+        var ingredientsSet = Set(ingredients)
         // create a boolean to set to true if the record is a subset
         var result = false
         // loop through each record in the search history and check if the current ingredient set is a subset of any of the saved sets
@@ -162,7 +162,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         else{
             searchHistory.append(ingredients)
         }
-                
+        
         // check if the newly added set is a superset of any others - if so remove the subset
         var recordNo = 0
         //loop through the search history and make a set varible of each record.
@@ -188,14 +188,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         /* try to move to apiManager Class */
         
         //do api for filterByMultiingerdient *done
-/*var recipyList = */ filterByIngredient(ingredients: ingredients)
+        /*var recipyList = */ filterByIngredient(ingredients: ingredients)
+       
         //print("from api function call")
         //print(recipyList)
         
         //api call for each recipy to get its cateogry and populate the categories array
         
         
-    
+        
         
         // createing an object of the resource details controller
         let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
@@ -229,56 +230,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     struct rootAlt: Codable {
         let meals: [NestedAlt]
     }//end struct
-
-  
+    
+    
     // recipy lookup API function
+    var tempCategorySet = Set<String>()
+    
+    
     
     func recipyLookup(recipyId: Int32) {
-    let headers = [
-        "X-RapidAPI-Key": "14fc04b22fmsh316f7bb4d82555dp166249jsn7a012b0bd69e",
-        "X-RapidAPI-Host": "themealdb.p.rapidapi.com"
-    ]
-
-    let request = NSMutableURLRequest(url: NSURL(string: "https://themealdb.p.rapidapi.com/lookup.php?i=\(recipyId)")! as URL,
-                                            cachePolicy: .useProtocolCachePolicy,
-                                        timeoutInterval: 10.0)
-    request.httpMethod = "GET"
-    request.allHTTPHeaderFields = headers
-
-    let session = URLSession.shared
-    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-        if (error != nil) {
-            print(error as Any)
-        } else {
-           // let httpResponse = response as? HTTPURLResponse
-           // print(httpResponse)
-            
-            if let data = data {
-                      do {
-                          let response = try JSONDecoder().decode(rootAlt.self, from: data)
-                          //do whatever with the decoded data
-                         
-                          
-                          var i=0
-                          let Count = response.meals.count
-                          print("Full Recipy for recipyID : \(recipyId)")
-                          print(response)
-                          
-                          
-                         
-                      }//end do
-                      catch {
-                      }//end catch
-                  }//end if let data
-        }
-    })
-
-    dataTask.resume()
+        let headers = [
+            "X-RapidAPI-Key": "14fc04b22fmsh316f7bb4d82555dp166249jsn7a012b0bd69e",
+            "X-RapidAPI-Host": "themealdb.p.rapidapi.com"
+        ]
+        
+        let request = NSMutableURLRequest(url: NSURL(string: "https://themealdb.p.rapidapi.com/lookup.php?i=\(recipyId)")! as URL,
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error as Any)
+            } else {
+                // let httpResponse = response as? HTTPURLResponse
+                // print(httpResponse)
+                
+                if let data = data {
+                    do {
+                        let response = try JSONDecoder().decode(rootAlt.self, from: data)
+                        //do whatever with the decoded data
+                        
+                        
+                        var i=0
+                        
+//                        print("Full Recipy for recipyID : \(recipyId)")
+//                        print(response)
+                        
+                        // at this point we need to populate a set of categories
+                        for recipy in response.meals{
+                            // then create an object(struct?) for each meal and instanciate it maybe? -- else create another set of meals
+                            self.tempCategorySet.insert(recipy.strCategory ?? "")
+                        }
+                        
+                        
+                        
+                    }//end do
+                    catch {
+                    }//end catch
+                }//end if let data
+            }
+        })
+        
+        dataTask.resume()
     }
-    //func filterByIngredient(ingredients: [String]) -> [Nested]{
-        func filterByIngredient(ingredients: [String]) {
-            
-            // anonumous function to convert the Array of ingredients [String] To a comma seperated list
+    //func filterByIngredient(ingredients: [String]) -> [root]{
+    func filterByIngredient(ingredients: [String]) {
+        
+        // anonumous function to convert the Array of ingredients [String] To a comma seperated list
         func cslIngerdients(ingredients: [String]) -> String
         {
             //declare&initalise a return varible
@@ -287,7 +297,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             var i = 0
             //loop through each ingredient in the ingredients array passed to the function
             for ingredient in ingredients {
-               //replace any spaces with underscores for api compatibility
+                //replace any spaces with underscores for api compatibility
                 var escapedIngredient = ingredient.replacingOccurrences(of: " ", with: "_")
                 //increment iterator
                 i = i + 1
@@ -304,61 +314,69 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }// end anonumous function
         
         // declare headers for API call
-    let headers = [
-        "X-RapidAPI-Key": "34b3adc60fmsh158723caa37e992p123c89jsnf450fd015e4b",
-        "X-RapidAPI-Host": "themealdb.p.rapidapi.com",
-        "Content-Type":    "application/json"   ]
-// API REquest stuff
-    let request = NSMutableURLRequest(url: NSURL(string: "https://themealdb.p.rapidapi.com/filter.php?i=\(cslIngerdients(ingredients: ingredients))")! as URL,
-                                            cachePolicy: .useProtocolCachePolicy,
-                                        timeoutInterval: 10.0)
-    request.httpMethod = "GET"
-    request.allHTTPHeaderFields = headers
-    let session = URLSession.shared
+        let headers = [
+            "X-RapidAPI-Key": "34b3adc60fmsh158723caa37e992p123c89jsnf450fd015e4b",
+            "X-RapidAPI-Host": "themealdb.p.rapidapi.com",
+            "Content-Type":    "application/json"   ]
+        // API REquest stuff
+        let request = NSMutableURLRequest(url: NSURL(string: "https://themealdb.p.rapidapi.com/filter.php?i=\(cslIngerdients(ingredients: ingredients))")! as URL,
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        let session = URLSession.shared
         // working with the request data
-     //   var returnValue : [String]
-    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-        if (error != nil) {
-            print(error as Any)
-        }// if theres no error in the request
-        else {
-            let httpResponse = response as? HTTPURLResponse
-            // declare the nested struct for the request data
-            
+       
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error as Any)
+            }// if theres no error in the request
+            else {
+                let httpResponse = response as? HTTPURLResponse
+                // declare the nested struct for the request data
+                
+                
+                if let data = data {
+                    do {
+                        let response = try JSONDecoder().decode(root.self, from: data)
+                        //do whatever with the decoded data
+                        
+                        
+                        var i=0
+                        let Count = response.meals.count
+                        print("# of total Recipies = \(Count)")
+                        var returnValue: [Int] = []
+                        for recipy in response.meals{
+                            returnValue[i] = Int(recipy.idMeal) ?? -1
+                            i=i+1
+                            print("      ---Recipy #\(i)----      ")
+                            print(recipy)
+                           
+                            
+                            // need to somehow make this accessible outside the api call. Maybe create a return varible to populate and set that to a gloabal varible at the end of the function?// or do second api clal here?
+                            
+                            self.recipyLookup(recipyId: Int32(recipy.idMeal ) ?? 0)
+                            
+                            
+                        }//end for
+                        
+                        //**need to find a better way to do this async
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            print("--------------------------------------Temp Category Set----------------------------------------------")
+                            print(self.tempCategorySet)
 
-            if let data = data {
-                      do {
-                          let response = try JSONDecoder().decode(root.self, from: data)
-                          //do whatever with the decoded data
-                         
-                          
-                          var i=0
-                          let Count = response.meals.count
-                          print("# of total Recipies = \(Count)")
-                          
-                          for recipy in response.meals{
-                              i=i+1
-                              print("      ---Recipy #\(i)----      ")
-                              print(recipy)
-                              //returnValue[i] = String(recipy)
-                              
-                              // need to somehow make this accessible outside the api call. Maybe create a return varible to populate and set that to a gloabal varible at the end of the function?// or do second api clal here?
-                              
-                              self.recipyLookup(recipyId: Int32(recipy.idMeal ) ?? 0)
-                              
-                              
-                          }//end for
-                         
-                      }//end do
-                      catch {
-                      }//end catch
-                  }//end if let data
-        }//end else
-    })// end let datatask
+                        }
+                        
+                    }//end do
+                    catch {
+                    }//end catch
+                }//end if let data
+            }//end else
+        })// end let datatask
         dataTask.resume()
         
-      // return returnValue
-            
+        // return returnValue
+        
         
         
         
