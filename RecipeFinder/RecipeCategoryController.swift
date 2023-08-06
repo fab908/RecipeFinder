@@ -9,10 +9,13 @@ import UIKit
 
 class RecipeCategoryController: UIViewController {
     var ingredients: [String] = []
+    var recipeCategories: [String] = []
+   // var fullRecipeList: [rootAlt] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        print("from category veiw controller \(recipeCategories)")
     }
     
     @IBAction func nextView(_ sender: Any) {

@@ -190,35 +190,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //do api for filterByMultiingerdient *done
         /*var recipyList = */
         Task {
-            Task {
-                let extractedIDs = await withUnsafeContinuation { continuation in
-                    filterByIngredient(ingredients: ingredients) { result in
-                        continuation.resume(returning: result)
-                    }
-                }
-                
-                print("Extracted IDs: \(extractedIDs)")
-               
-                
-                
-                Task {
-                    var fullRecipyList: [rootAlt] = []
-                    for recipy in extractedIDs{
-                        
-                        recipyLookup(recipyId: Int32(recipy)) { result in
-                            print("Returned result: \(result)")
-                            // ... Use the result as needed ...
-                            fullRecipyList.append(result)
-                        }
-                    }
-                    print(fullRecipyList)
-                    
-                // do something here with data
-                    
+            let extractedIDs = await withUnsafeContinuation { continuation in
+                filterByIngredient(ingredients: ingredients) { result in
+                    continuation.resume(returning: result)
                 }
             }
+            
+            print("Extracted IDs: \(extractedIDs)")
+            var recipeCategories: [String] = []
+            var fullRecipeList: [rootAlt] = []
+            let group = DispatchGroup()
+            
+            for recipeID in extractedIDs {
+                group.enter()
+                
+                recipyLookup(recipyId: Int32(recipeID)) { result in
+                   // print("Returned result: \(result)")
+                    fullRecipeList.append(result)
+                    recipeCategories.append(result.meals[0].strCategory)
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                print("All recipe lookups completed")
+                print(recipeCategories)
+                // Now you can use fullRecipeList for further processing
+                // createing an object of the resource details controller
+                let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
+                self.navigationController?.pushViewController(recipeCategory, animated: true)
+                recipeCategory.ingredients = self.ingredients
+                recipeCategory.recipeCategories = recipeCategories
+              //  recipeCategory.fullRecipeList = fullRecipeList
+                
+            }
         }
-        
         //print("from api function call")
         //print(recipyList)
         
@@ -227,10 +233,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         
-        // createing an object of the resource details controller
-        let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
-        self.navigationController?.pushViewController(recipeCategory, animated: true)
-        recipeCategory.ingredients = ingredients
+        
     }
     
     
@@ -249,7 +252,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }//end struct
     struct NestedAlt: Codable {
         let idMeal, strMeal, strMealThumb: String?
-        let strDrinkAlternate, strCategory, strArea, strInstructions, strTags, strYoutube: String?
+        let strCategory: String
+        let strDrinkAlternate, strArea, strInstructions, strTags, strYoutube: String?
         let strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10, strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15, strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20: String?
         let strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11, strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17, strMeasure18, strMeasure19, strMeasure20: String?
     }//end struct    //declare the root struct for the request data
@@ -262,8 +266,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     // recipy lookup API function
-    var tempCategorySet = Set<String>()
-    
+       
     
     @MainActor
     func recipyLookup(recipyId: Int32, completion: @escaping (rootAlt) -> Void) {
