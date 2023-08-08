@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var ingredientsTextField: UITextField!
     var ingredients: [String] = []
     var searchHistory = [[String]]()
-    
+    var apiManager = ApiManager()
     
     /*-----------------------On startup---------------------------*/
     override func viewDidLoad() {
@@ -27,6 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ingredientsTableView.dataSource = self
         historyTableView.delegate = self
         historyTableView.dataSource = self
+        
     }
     
     /*func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -54,7 +55,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //return the cell
             return tempCell
         }else{
-            print(indexPath.row)
+            //print(indexPath.row)
             // creating an instance of the cell template
             let tempCell:HistoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell") as! HistoryTableViewCell
             // SET MENU OPTIONS HERE:
@@ -84,7 +85,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tempCell.historyButton?.showsMenuAsPrimaryAction = true
             tempCell.historyButton?.changesSelectionAsPrimaryAction = true
             
-            print(menuObjects)
+            //print(menuObjects)
             
             
             
@@ -131,7 +132,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     /*-----------------------Clicking a search history button---------------------------*/
     @IBAction func historyButtonOnClick(_ sender: UIButton) {
         // historyTableView.selectRow(at: [IndexPath(row:sender.tag,section:0)], animated: <#T##Bool#>, scrollPosition: <#T##UITableView.ScrollPosition#>)
-        print("clicked")
+        //print("clicked")
     }
     /*-----------------------Delete Ingredients---------------------------*/
     @IBAction func ingredientButton(_ sender: UIButton) {
@@ -157,7 +158,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         //if there was a match and the current record is a subset do nothing
         if(result){
-            
         }//otherwise add the current record to the search history
         else{
             searchHistory.append(ingredients)
@@ -182,56 +182,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             recordNo += 1
         }
         historyTableView.reloadData()
-        print(searchHistory)
+        //print(searchHistory)
         // *** need to save search history at this point before the next page loads.
         
         /* try to move to apiManager Class */
         
         //do api for filterByMultiingerdient *done
         /*var recipyList = */
-        Task {
-            let extractedIDs = await withUnsafeContinuation { continuation in
-                filterByIngredient(ingredients: ingredients) { result in
-                    continuation.resume(returning: result)
-                }
-            }
-            
-            print("Extracted IDs: \(extractedIDs)")
-            var recipeCategories: [String] = []
-            var fullRecipeList: [rootAlt] = []
-            let group = DispatchGroup()
-            
-            for recipeID in extractedIDs {
-                group.enter()
-                
-                recipyLookup(recipyId: Int32(recipeID)) { result in
-                   // print("Returned result: \(result)")
-                    fullRecipeList.append(result)
-                    recipeCategories.append(result.meals[0].strCategory)
-                    group.leave()
-                }
-            }
-            
-            group.notify(queue: .main) {
-                print("All recipe lookups completed")
-                print(recipeCategories)
-                // Now you can use fullRecipeList for further processing
-                // createing an object of the resource details controller
-                let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
-                self.navigationController?.pushViewController(recipeCategory, animated: true)
-                recipeCategory.ingredients = self.ingredients
-                recipeCategory.recipeCategories = recipeCategories
-              //  recipeCategory.fullRecipeList = fullRecipeList
-                
-            }
-        }
-        //print("from api function call")
-        //print(recipyList)
-        
+        // anonumous function to convert the Array of ingredients [String] To a comma seperated list
+        // end anonumous function
         //api call for each recipy to get its cateogry and populate the categories array
         
-        
-        
+        apiManager.getRecipes(field: "title", ingredients: apiManager.IngredientsPrep(ingredients: ingredients))
+        let recipesView = self.storyboard?.instantiateViewController(withIdentifier: "RecipesView") as! RecipesController
+        self.navigationController?.pushViewController(recipesView, animated: true)
+        recipesView.recipeTitles = apiManager.title
+        recipesView.images = apiManager.images
+        recipesView.recipeIds = apiManager.ids
+        recipesView.ingredients = apiManager.ingredients
         
         
     }
