@@ -193,7 +193,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // end anonumous function
         //api call for each recipy to get its cateogry and populate the categories array
         
-        apiManager.getRecipes(field: "title", ingredients: apiManager.IngredientsPrep(ingredients: ingredients))
+        apiManager.getRecipes(ingredients: apiManager.IngredientsPrep(ingredients: ingredients))
         let recipesView = self.storyboard?.instantiateViewController(withIdentifier: "RecipesView") as! RecipesController
         self.navigationController?.pushViewController(recipesView, animated: true)
         recipesView.recipeTitles = apiManager.title

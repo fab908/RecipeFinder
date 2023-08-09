@@ -1,15 +1,15 @@
 //
-//  RecipeIngredientsTableViewCell.swift
+//  InstructionsTableViewCell.swift
 //  RecipeFinder
 //
-//  Created by Fabrizio Grossi on 2023-08-07.
+//  Created by Fabrizio Grossi on 2023-08-09.
 //
 
 import UIKit
 
-class RecipeIngredientsTableViewCell: UITableViewCell {
+class InstructionsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var ingredientsTextView: UITextView!
+    @IBOutlet weak var InstructionTextView: UITextView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

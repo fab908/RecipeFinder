@@ -309,7 +309,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="recipesTableView" destination="CiO-Xm-fby" id="vib-2b-4Pr"/>
-                        <segue destination="dFq-8U-HVq" kind="show" id="Wbe-57-gaD"/>
+                        <segue destination="TAL-EQ-Dlp" kind="show" id="ZqN-Wq-TD1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YgC-ne-QLT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -335,63 +335,42 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILK-hd-Qo1">
-                                <rect key="frame" x="317" y="783" width="60" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Next"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SXw-mu-2gl">
-                                <rect key="frame" x="16" y="783" width="90" height="35"/>
+                                <rect key="frame" x="6" y="783" width="110" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Previous"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Ingredients"/>
+                                <connections>
+                                    <action selector="IngredientsOnClick:" destination="TAL-EQ-Dlp" eventType="touchUpInside" id="SYo-7M-QL3"/>
+                                    <action selector="IngredientsOnClick:" destination="0Ee-26-X4C" eventType="touchUpInside" id="vTj-pb-fvl"/>
+                                </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Vt3-Ef-qMd">
-                                <rect key="frame" x="16" y="398" width="361" height="203"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILK-hd-Qo1">
+                                <rect key="frame" x="263" y="783" width="114" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Instructions"/>
+                                <connections>
+                                    <action selector="InstructionsOnClick:" destination="TAL-EQ-Dlp" eventType="touchUpInside" id="Tf4-kn-Ob0"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Recipe Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XZP-WL-KNN">
+                                <rect key="frame" x="16" y="362" width="361" height="395"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Bca-W7-sQR" customClass="RecipeIngredientsTableViewCell" customModule="RecipeFinder" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="361" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bca-W7-sQR" id="oBo-lV-D0B">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Yj-9G-crk">
-                                                    <rect key="frame" x="0.0" y="11" width="361" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="2Yj-9G-crk" secondAttribute="bottom" constant="11.67" id="Hdg-j5-98p"/>
-                                                <constraint firstItem="2Yj-9G-crk" firstAttribute="top" secondItem="oBo-lV-D0B" secondAttribute="top" constant="11" id="Xbf-Xt-APd"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="ingredientLabel" destination="2Yj-9G-crk" id="8AD-BG-HHo"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ingredients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QCT-1f-z9g">
-                                <rect key="frame" x="153" y="379" width="86" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EDt-gd-Xh2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Recipe" image="fork.knife" catalog="system" id="l2y-Km-PwR"/>
-                    <navigationItem key="navigationItem" id="zcx-Rj-eXz">
+                    <navigationItem key="navigationItem" title="Recipe" id="zcx-Rj-eXz">
                         <barButtonItem key="rightBarButtonItem" title="Home" style="plain" id="Z2f-6m-9Og">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="N0u-rR-GZv">
+                                <rect key="frame" x="307.33333333333331" y="5" width="69.666666666666686" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Home"/>
@@ -399,14 +378,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="ingredientsTableView" destination="Vt3-Ef-qMd" id="8aW-HI-CTo"/>
+                        <outlet property="recipeDescription" destination="XZP-WL-KNN" id="jYY-Fi-Cn2"/>
                         <outlet property="recipeImage" destination="9E7-yF-E6q" id="mXE-kq-aHE"/>
                         <outlet property="recipeLabel" destination="CWR-3c-zBZ" id="L9C-vB-iIA"/>
+                        <segue destination="7BN-SM-8ce" kind="show" id="3e3-OU-04B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xra-HA-oxZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="0Ee-26-X4C" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4260" y="-418"/>
+            <point key="canvasLocation" x="3438.9312977099235" y="3.5211267605633805"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kae-zm-c2E">
@@ -426,57 +407,137 @@
             </objects>
             <point key="canvasLocation" x="101.5267175572519" y="3.5211267605633805"/>
         </scene>
-        <!--Recipe Tab Bar Controller-->
-        <scene sceneID="iiI-qc-RAb">
-            <objects>
-                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" id="dFq-8U-HVq" customClass="RecipeTabBarController" customModule="RecipeFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="pmD-Io-RY8"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="r2a-xN-geW">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="TAL-EQ-Dlp" kind="relationship" relationship="viewControllers" id="oqy-r9-fmT"/>
-                        <segue destination="7BN-SM-8ce" kind="relationship" relationship="viewControllers" id="NN5-BS-5FA"/>
-                        <segue destination="HH8-kx-IWN" kind="relationship" relationship="viewControllers" id="1jA-7o-yDt"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1uM-gS-6aQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3475.5725190839694" y="3.5211267605633805"/>
-        </scene>
         <!--IngredientList-->
         <scene sceneID="dqM-tv-rAc">
             <objects>
-                <viewController storyboardIdentifier="IngredientList" title="IngredientList" id="7BN-SM-8ce" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IngredientList" title="IngredientList" id="7BN-SM-8ce" customClass="IngredientListController" customModule="RecipeFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RQG-kF-tIH">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="VFo-cv-VuA">
+                                <rect key="frame" x="16" y="121" width="361" height="612"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="94" id="Nml-yz-un2" customClass="RecipeIngredientsTableViewCell" customModule="RecipeFinder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="361" height="94"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Nml-yz-un2" id="cYL-Va-0dH">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="94"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Ingredient" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Vj-e1-QfU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="361" height="94"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="textColor" systemColor="labelColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9Vj-e1-QfU" firstAttribute="top" secondItem="cYL-Va-0dH" secondAttribute="top" id="BQh-HE-e0d"/>
+                                                <constraint firstAttribute="trailing" secondItem="9Vj-e1-QfU" secondAttribute="trailing" id="Gq9-PA-ofb"/>
+                                                <constraint firstItem="9Vj-e1-QfU" firstAttribute="leading" secondItem="cYL-Va-0dH" secondAttribute="leading" id="fT0-KL-Zye"/>
+                                                <constraint firstAttribute="bottom" secondItem="9Vj-e1-QfU" secondAttribute="bottom" id="icr-dg-ghI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="ingredientsTextView" destination="9Vj-e1-QfU" id="ay4-qC-lZi"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzP-6Q-aHy">
+                                <rect key="frame" x="263" y="783" width="114" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Instructions"/>
+                                <connections>
+                                    <action selector="InstructionsOnClick:" destination="7BN-SM-8ce" eventType="touchUpInside" id="LSX-qN-Wfu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0d-x7-iM7">
+                                <rect key="frame" x="16" y="783" width="168" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Recipe Description"/>
+                                <connections>
+                                    <action selector="RecipeDescOnClick:" destination="7BN-SM-8ce" eventType="touchUpInside" id="bau-RX-pWI"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="FeJ-zI-kwS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Ingredients" image="list.bullet" catalog="system" id="P0m-Aw-3IM"/>
+                    <navigationItem key="navigationItem" title="Ingredients" id="9zN-16-u7p"/>
+                    <connections>
+                        <outlet property="ingredientsTableView" destination="VFo-cv-VuA" id="ryT-HU-iRW"/>
+                        <segue destination="HH8-kx-IWN" kind="show" id="K4I-Gz-x4u"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RHY-o2-VE7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4259" y="316"/>
+            <point key="canvasLocation" x="4246.5648854961828" y="3.5211267605633805"/>
         </scene>
         <!--RecipeInstructions-->
         <scene sceneID="fjc-cx-3ve">
             <objects>
-                <viewController title="RecipeInstructions" id="HH8-kx-IWN" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecipeInstructions" title="RecipeInstructions" id="HH8-kx-IWN" customClass="RecipeInstructionsController" customModule="RecipeFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FZH-L3-sWd">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OyJ-8X-7yV">
+                                <rect key="frame" x="16" y="133" width="361" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="94" id="EHE-PA-Atq" customClass="InstructionsTableViewCell" customModule="RecipeFinder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="361" height="94"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EHE-PA-Atq" id="wri-fe-IVv">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="94"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" editable="NO" text="Instructions Here" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRp-y1-rY8">
+                                                    <rect key="frame" x="0.0" y="3" width="361" height="91"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="textColor" systemColor="labelColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="IRp-y1-rY8" firstAttribute="top" secondItem="wri-fe-IVv" secondAttribute="top" id="3O7-5P-zYj"/>
+                                                <constraint firstAttribute="trailing" secondItem="IRp-y1-rY8" secondAttribute="trailing" id="GMO-tJ-A4q"/>
+                                                <constraint firstItem="IRp-y1-rY8" firstAttribute="top" secondItem="wri-fe-IVv" secondAttribute="top" constant="3" id="MhT-UT-BtE"/>
+                                                <constraint firstAttribute="bottom" secondItem="IRp-y1-rY8" secondAttribute="bottom" id="Nca-tu-8QC"/>
+                                                <constraint firstItem="IRp-y1-rY8" firstAttribute="leading" secondItem="wri-fe-IVv" secondAttribute="leading" id="iZy-sb-ejS"/>
+                                                <constraint firstAttribute="trailing" secondItem="IRp-y1-rY8" secondAttribute="trailing" id="igf-0e-8a3"/>
+                                                <constraint firstAttribute="bottom" secondItem="IRp-y1-rY8" secondAttribute="bottom" id="u53-8s-sDb"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="InstructionTextView" destination="IRp-y1-rY8" id="0Lh-rH-nps"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="8mh-er-bpX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="steps" image="book" catalog="system" id="X9J-gc-Hvu"/>
+                    <navigationItem key="navigationItem" title="Instructions" id="1OD-D7-k2s"/>
+                    <connections>
+                        <outlet property="stepsTableView" destination="OyJ-8X-7yV" id="vMZ-GZ-Ob7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ga-1I-ybB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5190" y="-36"/>
+            <point key="canvasLocation" x="5177.8625954198469" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <resources>

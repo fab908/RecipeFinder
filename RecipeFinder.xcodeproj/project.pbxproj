@@ -11,7 +11,7 @@
 		49A05A552A81E73400894876 /* RecipeIngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A05A542A81E73400894876 /* RecipeIngredientsTableViewCell.swift */; };
 		49A05A572A81F1B900894876 /* IngredientListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A05A562A81F1B900894876 /* IngredientListController.swift */; };
 		49A05A592A81F23000894876 /* RecipeInstructionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A05A582A81F23000894876 /* RecipeInstructionsController.swift */; };
-		49A05A5B2A81F5B900894876 /* RecipeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A05A5A2A81F5B900894876 /* RecipeTabBarController.swift */; };
+		49A05A5D2A8347CC00894876 /* InstructionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A05A5C2A8347CC00894876 /* InstructionsTableViewCell.swift */; };
 		49F32C272A71BA4A008B192D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C262A71BA4A008B192D /* AppDelegate.swift */; };
 		49F32C292A71BA4A008B192D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C282A71BA4A008B192D /* SceneDelegate.swift */; };
 		49F32C2B2A71BA4A008B192D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F32C2A2A71BA4A008B192D /* ViewController.swift */; };
@@ -32,7 +32,7 @@
 		49A05A542A81E73400894876 /* RecipeIngredientsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		49A05A562A81F1B900894876 /* IngredientListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListController.swift; sourceTree = "<group>"; };
 		49A05A582A81F23000894876 /* RecipeInstructionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInstructionsController.swift; sourceTree = "<group>"; };
-		49A05A5A2A81F5B900894876 /* RecipeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTabBarController.swift; sourceTree = "<group>"; };
+		49A05A5C2A8347CC00894876 /* InstructionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsTableViewCell.swift; sourceTree = "<group>"; };
 		49F32C232A71BA4A008B192D /* RecipeFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F32C262A71BA4A008B192D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49F32C282A71BA4A008B192D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 				49A05A542A81E73400894876 /* RecipeIngredientsTableViewCell.swift */,
 				49F32C4D2A786C08008B192D /* HistoryTableViewCell.swift */,
 				49F32C492A759597008B192D /* IngredientsTableViewCell.swift */,
-				49A05A5A2A81F5B900894876 /* RecipeTabBarController.swift */,
+				49A05A5C2A8347CC00894876 /* InstructionsTableViewCell.swift */,
 			);
 			path = RecipeFinder;
 			sourceTree = "<group>";
@@ -177,13 +177,13 @@
 				49A05A572A81F1B900894876 /* IngredientListController.swift in Sources */,
 				49F32C4E2A786C08008B192D /* HistoryTableViewCell.swift in Sources */,
 				49A05A592A81F23000894876 /* RecipeInstructionsController.swift in Sources */,
+				49A05A5D2A8347CC00894876 /* InstructionsTableViewCell.swift in Sources */,
 				49F32C4A2A759597008B192D /* IngredientsTableViewCell.swift in Sources */,
 				49A05A552A81E73400894876 /* RecipeIngredientsTableViewCell.swift in Sources */,
 				49F32C502A7C785E008B192D /* ApiManager.swift in Sources */,
 				49F32C2B2A71BA4A008B192D /* ViewController.swift in Sources */,
 				49F32C3E2A71CD26008B192D /* RecipeCategoryController.swift in Sources */,
 				49F32C442A71CE0F008B192D /* RecipeController.swift in Sources */,
-				49A05A5B2A81F5B900894876 /* RecipeTabBarController.swift in Sources */,
 				49F32C312A71BA4A008B192D /* RecipeFinder.xcdatamodeld in Sources */,
 				49F32C272A71BA4A008B192D /* AppDelegate.swift in Sources */,
 				49F32C292A71BA4A008B192D /* SceneDelegate.swift in Sources */,

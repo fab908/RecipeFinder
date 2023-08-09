@@ -53,8 +53,7 @@ class RecipesController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     @IBAction func nextView(_ sender: Any) {
         // createing an object of the resource details controller
-        let recipeView = self.storyboard?.instantiateViewController(withIdentifier: "RecipeView") as! RecipeController
-        self.navigationController?.pushViewController(recipeView, animated: true)
+        
     }
     
     @IBAction func homeOnClick(_ sender: Any) {

@@ -14,7 +14,9 @@ class ApiManager{
     var images: [String]
     var ids:[Int]
     var ingredients:[String]
-    
+    var steps:[String]
+    var recipeDescription:String
+    var apiKey:String = "6dd6de4a454a4313a66c2d1f0124abf7"
     init(){
         self.field = ""
         self.returnValue = ""
@@ -22,10 +24,16 @@ class ApiManager{
         self.images = []
         self.ids = []
         self.ingredients = []
+        self.steps = []
+        self.recipeDescription = ""
     }
-    func getIndividualRecipe(id: String){
+
+    
+    func getRecipeInformation(id: String){
         // this url is for the api were using. the ingredients string is passed in to search by ingredients
-            let jsonUrlString = "https://api.spoonacular.com/recipes/\(id)/analyzedInstructions?apiKey=c3c5688e12d044979252eeb6c6db26ac"
+        //
+        //https://api.spoonacular.com/recipes/informationBulk?apiKey=6dd6de4a454a4313a66c2d1f0124abf7&ids=1697601
+            let jsonUrlString = "https://api.spoonacular.com/recipes/informationBulk?apiKey=\(apiKey)&ids=\(id)"
         // switching it to a url object. if it doesnt pass or its a bad url it will return nothing
             guard let url = URL(string: jsonUrlString) else {
                 return
@@ -48,19 +56,70 @@ class ApiManager{
                                 print("Ingredient Name:", name)
                             }
                         }*/
-                    var count = 0
-                    // getting the recipe title
+
+                    
                     for recipe in json! {
-                        // appending the id's
-                        self.ids.append(json![count]["id"] as! Int)
-                            if let title = recipe["title"] as? String {
-                                self.title.append(title)
+                        // getting the recipe ingredients
+                        if let ingredients = recipe["extendedIngredients"] as? [[String: Any]] {
+                            for ingredient in ingredients {
+                                if let original = ingredient["original"] as? String {
+                                    self.ingredients.append(original)
+                                }
                             }
-                        if let image = recipe["image"] as? String {
-                            self.images.append(image)
                         }
-                        count += 1
+                        // getting the recipe instructions
+                        // putting the "analyzedInstructions" section of the json into an md array
+                        for instruction in recipe["analyzedInstructions"] as? [[String: Any]] ?? []{
+                            for step in instruction["steps"]as? [[String: Any]] ?? []{
+                                self.steps.append(step["step"]! as! String)
+                                
+                            }
+                            
                         }
+                            
+                            
+                            
+                            /*for steps in instructions[0]["steps"] as? [[String: Any]] ?? [] {
+                                for step in steps["step"] as? [[String: Any]] ?? [] {
+                                    print(step)
+                                    print("-------------End of Steps-------------")
+                                }
+                            }*/
+                        
+                               // putting the "steps" section of the "analyzedInstruction" section of the json into an md array
+                           
+                              /* let stepsArray = instructions.first?["steps"] as? [[String: Any]] {
+                                // looping through the md array
+                                for stepInfo in stepsArray {
+                                    // looking for the "step" section that holds all the steps in the recipe and storing it as a string
+                                    if let step = stepInfo["step"] as? String {
+                                        // separating the steps by the periods into an array so that
+                                        // We could make a numbered list of steps
+                                        self.steps = step.components(separatedBy: ".")
+                                        print(self.steps)
+                                        
+                                    }
+                                }
+                            }*/
+                        //getting the recipe description and storing it into the variable
+                        self.recipeDescription = recipe["summary"] as! String
+
+                        // Defining a regular expression pattern to match HTML tags since the response contains them.
+                        let htmlTagPattern = "<[^>]+>"
+
+                        // Use the regular expression to replace HTML tags with an empty string
+                        self.recipeDescription = self.recipeDescription.replacingOccurrences(
+                            of: htmlTagPattern,
+                            with: "",
+                            options: .regularExpression,
+                            range: nil
+                        )
+                    }
+                    
+                    
+                    
+                    
+                        
                 } catch {
                     self.returnValue = ""
                 }
@@ -71,9 +130,9 @@ class ApiManager{
             dispatchGroup.wait() // This will block the main thread until the data task is completed
     }
     
-    func getRecipes(field: String, ingredients: String) {
+    func getRecipes(ingredients: String) {
         // this url is for the api were using. the ingredients string is passed in to search by ingredients
-            let jsonUrlString = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=c3c5688e12d044979252eeb6c6db26ac&ingredients=\(ingredients)&number=50"
+        let jsonUrlString = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=\(apiKey)&ingredients=\(ingredients)&number=50"
         // switching it to a url object. if it doesnt pass or its a bad url it will return nothing
             guard let url = URL(string: jsonUrlString) else {
                 return
@@ -92,7 +151,6 @@ class ApiManager{
                     // make our data a json object so we can pull the values
                     let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [[String: Any]]
                     print(json)
-                    self.returnValue = json?[0][field] as? String ?? ""
                     // getting the ingredients for the recipe
                     /*for ingredient in json![1]["usedIngredients"] as? [[String: Any]] ?? [] {
                             if let name = ingredient["original"] as? String {
