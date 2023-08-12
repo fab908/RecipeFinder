@@ -1,9 +1,12 @@
-//
-//  ViewController.swift
-//  RecipeFinder
-//
-//  Created by Fabrizio Grossi on 2023-07-26.
-//
+/*
+ ViewController.swift
+ RecipeFinder
+ Created by Kyle Duffy on 2023-07-26.
+ description:
+ This is the main view controller where you can type in the ingredients you want to see in recipes, it
+ will also hold your previous searches so you can quickly click it and search for that ingredient list.
+*/
+
 
 import UIKit
 import Darwin

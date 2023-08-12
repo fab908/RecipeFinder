@@ -1,9 +1,8 @@
-//
 //  RecipesTableViewCell.swift
 //  RecipeFinder
 //
 //  Created by Fabrizio Grossi on 2023-08-06.
-//
+//  Table view Cell template
 
 import UIKit
 

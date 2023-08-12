@@ -1,9 +1,17 @@
-//
-//  ApiManager.swift
-//  RecipeFinder
-//
-//  Created by Fabrizio Grossi on 2023-08-03.
-//
+/*
+ ApiManager.swift
+ RecipeFinder
+ Created by Fabrizio Grossi on 2023-07-26.
+ description:
+ This class is intensive but it handles every single request from our api. Everything is stored in variables so we
+ just have to call the variable depending on what we need after we call an instance of this class. the first function
+ getRecipeInformation() will allow us to recieve the ingredients needed, description, and instructions from the id of
+ the recipe. the next function getRecipes() allows us to search for a list of recipes (limited to 50) from the list of
+ ingredients the user had put in. This will get the image of the recipe, and title. IngredientsPrep() prepares the
+ ingredients into a separated list with ",+" in order to use it in our api url. DownloadImage() downloads the images from
+ the recipes URL as that is how the API gives us the images so it needs to be handled so we can use it in our application.
+*/
+
 
 import Foundation
 import UIKit

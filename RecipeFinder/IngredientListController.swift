@@ -1,9 +1,11 @@
-//
-//  IngredientListViewController.swift
-//  RecipeFinder
-//
-//  Created by Fabrizio Grossi on 2023-08-07.
-//
+/*
+ IngredientListViewController.swift
+ RecipeFinder
+ Created by Fabrizio Grossi on 2023-07-26.
+ description:
+ This View will populate the ingredients needed to complete the recipe selected from the api. You are given an option to see the instructions, as well as go back to the recipe description.
+*/
+
 
 import UIKit
 

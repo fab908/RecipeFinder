@@ -2,8 +2,9 @@
 //  RecipeIngredientsTableViewCell.swift
 //  RecipeFinder
 //
-//  Created by Fabrizio Grossi on 2023-08-07.
-//
+//  Created by Kyle Duffy on 2023-08-07.
+//  table view cell for the ingredients
+
 
 import UIKit
 

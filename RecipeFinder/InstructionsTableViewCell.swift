@@ -3,7 +3,8 @@
 //  RecipeFinder
 //
 //  Created by Fabrizio Grossi on 2023-08-09.
-//
+//  table view cell for the instructions view listing all the instructions for the recipe chosen by the user
+
 
 import UIKit
 

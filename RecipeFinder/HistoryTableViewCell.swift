@@ -3,7 +3,8 @@
 //  RecipeFinder
 //
 //  Created by Fabrizio Grossi on 2023-07-31.
-//
+// table view cell for the ingredient history.
+
 
 import UIKit
 

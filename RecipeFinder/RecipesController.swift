@@ -1,9 +1,4 @@
-//
-//  RecipesController.swift
-//  RecipeFinder
-//
-//  Created by Fabrizio Grossi on 2023-07-26.
-//
+// NOT USED
 
 import UIKit
 

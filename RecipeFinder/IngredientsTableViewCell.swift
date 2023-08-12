@@ -2,8 +2,9 @@
 //  IngredientsTableViewCell.swift
 //  RecipeFinder
 //
-//  Created by Fabrizio Grossi on 2023-07-29.
-//
+//  Created by Kyle Duffy on 2023-07-29.
+// table view cell for the ingredients view listing all the ingredients for the recipe chosen by the user
+
 
 import UIKit
 

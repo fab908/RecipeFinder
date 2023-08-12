@@ -1,9 +1,11 @@
-//
-//  RecipeController.swift
-//  RecipeFinder
-//
-//  Created by Fabrizio Grossi on 2023-07-26.
-//
+/*
+ RecipeController.swift
+ RecipeFinder
+ Created byKyle Duffy on 2023-07-26.
+ description:
+ This View will populate the title of the recipe, the image, and a description of the recipe from the API.
+ You will also be given the option to go to see the instructions, as well as the ingredients needed for the recipe.
+*/
 
 import UIKit
 
