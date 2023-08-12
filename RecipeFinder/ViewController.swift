@@ -17,7 +17,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var ingredients: [String] = []
     var searchHistory = [[String]]()
+    var searchHistoryCoreData:[SearchHistoryEntity]?
     var apiManager = ApiManager()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     /*-----------------------On startup---------------------------*/
     override func viewDidLoad() {
@@ -28,7 +31,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ingredientsTableView.dataSource = self
         historyTableView.delegate = self
         historyTableView.dataSource = self
-        
+        fetchHistory()
+    }
+    //core data functions
+    
+    func fetchHistory() {
+        do {
+            self.searchHistoryCoreData = try context.fetch(SearchHistoryEntity.fetchRequest())
+            for history in searchHistoryCoreData! {
+                print(history)
+            }
+            
+        }catch{
+            
+        }
     }
     
     /*func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {

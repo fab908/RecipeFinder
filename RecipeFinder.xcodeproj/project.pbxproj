@@ -80,6 +80,7 @@
 		49F32C252A71BA4A008B192D /* RecipeFinder */ = {
 			isa = PBXGroup;
 			children = (
+				7D39C6982A871A41007E98C3 /* model */,
 				49F32C262A71BA4A008B192D /* AppDelegate.swift */,
 				49F32C282A71BA4A008B192D /* SceneDelegate.swift */,
 				49F32C2A2A71BA4A008B192D /* ViewController.swift */,
@@ -101,6 +102,13 @@
 				49A05A5C2A8347CC00894876 /* InstructionsTableViewCell.swift */,
 			);
 			path = RecipeFinder;
+			sourceTree = "<group>";
+		};
+		7D39C6982A871A41007E98C3 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
