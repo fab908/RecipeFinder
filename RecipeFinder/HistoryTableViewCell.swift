@@ -8,10 +8,17 @@
 import UIKit
 
 class HistoryTableViewCell: UITableViewCell {
-
+    
+    
     @IBOutlet weak var buttonLabel: UILabel!
-    @IBOutlet weak var historyButton: UIButton!
-    @IBOutlet weak var historyButtonMenu: UIMenu!
+    @IBOutlet weak var historyAddButton: UIButton!
+    
+    
+    
+    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,6 +29,4 @@ class HistoryTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
-    
 }

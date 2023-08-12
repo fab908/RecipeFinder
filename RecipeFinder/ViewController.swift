@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var ingredientsViewController: UIView!
     @IBOutlet weak var ingredientsTableView: UITableView!
     @IBOutlet weak var ingredientsTextField: UITextField!
+    
     var ingredients: [String] = []
     var searchHistory = [[String]]()
     var apiManager = ApiManager()
@@ -44,6 +45,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
+    
+    @objc func menuItemAction() {
+        // Code to be executed when the menu item is selected
+        // For example, show an alert, perform an action, etc.
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(tableView == ingredientsTableView){
             // creating an instance of the cell template
@@ -61,39 +68,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // SET MENU OPTIONS HERE:
             //----------------------//
             //tempCell.buttonLabel.text = "Search \(indexPath.row + 1)"
-            tempCell.historyButton?.tag = indexPath.row
-            
-            
-            
-            let menuItems = searchHistory[indexPath.row]
-            
-            var menuObjects: [UIAction] = []
-            
-            for item in menuItems {
-                
-                let tempItem = UIAction(title: item, image: UIImage(systemName: "arrow.clockwise"), identifier: nil) { (_) in
-                    // handle refresh
+            tempCell.historyAddButton.tag =  indexPath.row
+            var tempList : String = ""
+            for ingredient in searchHistory[indexPath.row]{
+                if(tempList == ""){
+                    tempList = "\(ingredient)"
+                    
                 }
-                
-                menuObjects.insert(tempItem, at: 0)
-                
+                else{
+                    tempList = tempList + ", \(ingredient)"
+                }
             }
-            
-            let menu = UIMenu(title: "", children: menuObjects)
-            //return the cell
-            tempCell.historyButton?.menu = menu
-            tempCell.historyButton?.showsMenuAsPrimaryAction = true
-            tempCell.historyButton?.changesSelectionAsPrimaryAction = true
-            
-            //print(menuObjects)
-            
-            
+            tempCell.buttonLabel.text = "\(tempList)"
             
             return tempCell
         }
         
     }
     
+    @IBAction func historyButtonClick(_ sender: UIButton) {
+        ingredients.removeAll()
+        print(sender.tag)
+        ingredients = searchHistory[sender.tag]
+        ingredientsTableView.reloadData()
+        
+    }
+    
+    
+   
     
     /*-----------------------Add Ingredients---------------------------*/
     @IBAction func submitOnClick(_ sender: Any){
@@ -130,10 +132,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
      */
     
     /*-----------------------Clicking a search history button---------------------------*/
-    @IBAction func historyButtonOnClick(_ sender: UIButton) {
-        // historyTableView.selectRow(at: [IndexPath(row:sender.tag,section:0)], animated: <#T##Bool#>, scrollPosition: <#T##UITableView.ScrollPosition#>)
-        //print("clicked")
-    }
+    
+    
+    
+    
+    
+    
+    
+    
     /*-----------------------Delete Ingredients---------------------------*/
     @IBAction func ingredientButton(_ sender: UIButton) {
         // delete the row from the array
@@ -142,12 +148,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ingredientsTableView.deleteRows(at:[IndexPath(row:sender.tag,section:0)],with:.fade)
         // reload the data
         ingredientsTableView.reloadData()
+        
+        
     }
     
     /*-----------------------Find Recipes Button---------------------------*/
     @IBAction func FindRecipesOnClick(_ sender: Any){
         // make a set from the ingredient list to remove duplicates
-        var ingredientsSet = Set(ingredients)
+        let ingredientsSet = Set(ingredients)
         // create a boolean to set to true if the record is a subset
         var result = false
         // loop through each record in the search history and check if the current ingredient set is a subset of any of the saved sets
@@ -167,7 +175,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var recordNo = 0
         //loop through the search history and make a set varible of each record.
         for record in searchHistory{
-            var recordSet = Set(record)
+            let recordSet = Set(record)
             // create an iterator to keep track of which record were on in the nested loop that follows
             var iterator = 0
             // loop through the search history again and check if any of the sets are a subset of the record were on in the parent loop.
@@ -207,12 +215,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
-    /* API call function section */
+
     
     
     
     
     
+    //old code for original API call
     
     //structs for filterbyIngerdients API call
     struct Nested: Codable {
@@ -368,7 +377,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
 }// end class
-
+// end of old API call
 
 
 // extension for shaking the text view when incorrect input is entered
