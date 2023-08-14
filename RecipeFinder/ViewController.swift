@@ -39,10 +39,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //core data functions
     
     func fetchHistory() {
+        
         do {
+            var tempArray : [[String]] = []
             self.searchHistoryCoreData = try context.fetch(SearchHistoryEntity.fetchRequest())
-            for history in searchHistoryCoreData! {
-                print(history)
+            
+            for record in searchHistoryCoreData! {
+              print(record)
+                let tempRecord : [String] = record.ingredientList!
+                tempArray.append(tempRecord)
+            }
+            searchHistory = tempArray
+            DispatchQueue.main.async {
+                self.historyTableView.reloadData()
+                
             }
             
         }catch{
@@ -88,6 +98,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //----------------------//
             //tempCell.buttonLabel.text = "Search \(indexPath.row + 1)"
             tempCell.historyAddButton.tag =  indexPath.row
+            tempCell.historyDeleteButton.tag = indexPath.row
             var tempList : String = ""
             for ingredient in searchHistory[indexPath.row]{
                 if(tempList == ""){
@@ -104,7 +115,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    
+    //add history row into current ingredients
     @IBAction func historyButtonClick(_ sender: UIButton) {
         ingredients.removeAll()
         print(sender.tag)
@@ -113,8 +124,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    // delete a history button
+    @IBAction func historyDeleteButton(_ sender: UIButton) {
+        searchHistory.remove(at: sender.tag)
+        
+        //delete from core data
+        let itemToRemove = self.searchHistoryCoreData![sender.tag]
+        self.context.delete(itemToRemove)
+        do{
+           try self.context.save()
+            
+        }
+        catch{
+            
+        }
+     
+        
+        
+        historyTableView.reloadData()
+    }
     
-   
     
     /*-----------------------Add Ingredients---------------------------*/
     @IBAction func submitOnClick(_ sender: Any){
@@ -188,6 +217,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }//otherwise add the current record to the search history
         else{
             searchHistory.append(ingredients)
+            let newSearchHistoryRecord = SearchHistoryEntity(context: self.context)
+             newSearchHistoryRecord.ingredientList = ingredients
+            searchHistoryCoreData?.append(newSearchHistoryRecord)
+            
+            do{
+                try self.context.save()
+            }catch{
+                
+            }
         }
         
         // check if the newly added set is a superset of any others - if so remove the subset
@@ -208,6 +246,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             recordNo += 1
         }
+        
         historyTableView.reloadData()
         //print(searchHistory)
         // *** need to save search history at this point before the next page loads.

@@ -14,7 +14,8 @@ class HistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var buttonLabel: UILabel!
     @IBOutlet weak var historyAddButton: UIButton!
     
-    
+
+    @IBOutlet weak var historyDeleteButton: UIButton!
     
     
     
