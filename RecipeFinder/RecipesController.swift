@@ -1,4 +1,12 @@
-// NOT USED
+/*
+ RecipesController.swift
+ RecipeFinder
+ Created by Fabrizio Grossi on 2023-07-26.
+ description:
+ This is when you press find ingredients, a this page will implement the api to look for recipes with the ingredient list
+ and produce an image, and title of the recipe. When clicked it will move on to the next view.
+*/
+
 
 import UIKit
 

@@ -248,15 +248,47 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         historyTableView.reloadData()
-        //print(searchHistory)
-        // *** need to save search history at this point before the next page loads.
+       
+        /*  Old API call functionality
+                Task {
+                 let extractedIDs = await withUnsafeContinuation { continuation in
+                     filterByIngredient(ingredients: ingredients) { result in
+                         continuation.resume(returning: result)
+                     }
+                 }
+                 
+                 print("Extracted IDs: \(extractedIDs)")
+                 var recipeCategories: [String] = []
+                 var fullRecipeList: [rootAlt] = []
+                 let group = DispatchGroup()
+                 
+                 for recipeID in extractedIDs {
+                     group.enter()
+                     
+                     recipyLookup(recipyId: Int32(recipeID)) { result in
+                        // print("Returned result: \(result)")
+                         fullRecipeList.append(result)
+                         recipeCategories.append(result.meals[0].strCategory)
+                         group.leave()
+                     }
+                 }
+                 
+                 group.notify(queue: .main) {
+                     print("All recipe lookups completed")
+                     print(recipeCategories)
+                     // Now you can use fullRecipeList for further processing
+                     // createing an object of the resource details controller
+                     let recipeCategory = self.storyboard?.instantiateViewController(withIdentifier: "RecipeCategory") as! RecipeCategoryController
+                     self.navigationController?.pushViewController(recipeCategory, animated: true)
+                     recipeCategory.ingredients = self.ingredients
+                     recipeCategory.recipeCategories = recipeCategories
+                   //  recipeCategory.fullRecipeList = fullRecipeList
+                     
+                 }
+             }
+        */
         
-        /* try to move to apiManager Class */
         
-        //do api for filterByMultiingerdient *done
-        /*var recipyList = */
-        // anonumous function to convert the Array of ingredients [String] To a comma seperated list
-        // end anonumous function
         //api call for each recipy to get its cateogry and populate the categories array
         
         apiManager.getRecipes(ingredients: apiManager.IngredientsPrep(ingredients: ingredients))
